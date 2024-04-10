@@ -1,3 +1,59 @@
-test:
-  username: testu
-  password: testp
+packages:
+  chainroll: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/chainroll-release-v1.1.tar.gz
+  datasys: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/datasys-release-v1.1.tar.gz
+  dataflow: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/java-data-flow-release-v2.11.tar.gz
+  dataflow-frontend: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/bitxmesh-datasharing-platform-release-v2.11.0.tar.gz
+
+mysql:
+  m1:
+    host: 127.0.0.1
+    port: 3306
+    user: root
+    password: root
+    database: yzb-dataflow
+  m2:
+    host: 172.22.67.81
+    port: 3306
+    user: root
+    password: hyperchain@1n
+
+mongodb:
+  mongo1:
+    host: 172.22.67.81
+    port: 27017
+    user:
+    password:
+  mongo2:
+    host: 172.22.67.81
+    port: 27017
+    user:
+    password:
+
+hyperchain:
+  h1:
+    - host: 172.22.67.127
+      port: 8081
+    - host: 172.22.67.127
+      port: 8082
+    - host: 172.22.67.127
+      port: 8083
+    - host: 172.22.67.127
+      port: 8084
+
+orgs:
+  - name: 常熟机构0
+    chainroll:
+      grpc-port: 10100
+      http-port: 10200
+      hyperchain: h1
+      mongodb: mongo1
+      chainroll_mongo_suffix: 172_22_67_81_bitxmesh_changshu
+    datasys:
+      grpc-port: 9400
+      p2p-port: 7400
+    dataflow:
+      http-port: 9080
+      mysql: m1
+      mysql-datasys-db: 172_22_67_81_bitxmesh_changshu_org0
+      mysql-db: 172_22_67_81_bitxmesh_changshu_dataflow0
+

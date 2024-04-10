@@ -23,7 +23,7 @@ dev: tidy
 
 .PHONY: build
 build: tidy # 编译源码，依赖 tidy 目标自动添加/移除依赖包.
-	@go build -v -o $(OUTPUT_DIR)/$(COMMAND_NAME) $(ROOT_DIR)/cmd/$(COMMAND_NAME)/main.go
+	@go build -v -o $(OUTPUT_DIR)/$(COMMAND_NAME) $(ROOT_DIR)/main.go
 
 .PHONY: format
 format: # 格式化 Go 源码.
