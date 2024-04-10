@@ -1,0 +1,5 @@
+[build]
+cmd = "make build"
+# 由 `cmd` 命令得到的二进制文件名.
+bin = "_output/bitxmesh-ops"
+# args_bin = ["-c", "configs/bitxmesh-ops.yaml"]
