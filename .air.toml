@@ -1,5 +1,5 @@
 [build]
 cmd = "make build"
 # 由 `cmd` 命令得到的二进制文件名.
-bin = "_output/bitxmesh-ops start"
-args_bin = ["-c", "configs/bitxmesh-ops.yaml"]
+bin = "_output/bitxmesh-ops start chainroll chainroll0 --config  /Users/hyperchain/Code/bitxmesh-ops/configs/bitxmesh-ops.yaml"
+# args_bin = ["-c", "configs/bitxmesh-ops.yaml"]

@@ -13,6 +13,14 @@
 - 支持单机“多套环境”配置；
 - 支持的命令有：start、stop、restart、status、clear；当然最好还要支持一堆 update 操作；
 
+- 和 docker 的启动命令类似，可以通过 bitxmesh-ops start stop restart 等命令来管理整个 BitXMesh 环境，也可以单独管理 chainroll datasys dataflow 等子系统 
+- bitxmesh-ops start chainroll xxx // 启动名为 xxx 的 chainroll（如果不存在，则创建）（如果存在，则启动）（如果有库表，则创建）（） 
+- bitxmesh-ops stop chainroll xxx // 停止名为 xxx 的 bitxmesh（递归停止所有组件，先停止最上层服务）（如果不存在，则报错） 
+- bitxmesh-ops restart chainroll xxx // 重启名为 xxx 的 bitxmesh（递归停止、递归启动）（如果不存在，则报错） 
+- bitxmesh-ops ps // 查看所有正在运行的子系统状态 
+- bitxmesh-ops rm chainroll // 如果该进程正在运行，则停止并删除该进程（如果该进程正在被其他依赖，则提示）（同时也要删除所有的 mysql、mongo）
+
+
 ```json
 {
   "work_dir": ".",

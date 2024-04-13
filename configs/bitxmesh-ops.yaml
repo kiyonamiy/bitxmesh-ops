@@ -1,36 +1,32 @@
+workdir: /Users/hyperchain/Code/bitxmesh-ops/_output
 packages:
   chainroll: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/chainroll-release-v1.1.tar.gz
   datasys: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/datasys-release-v1.1.tar.gz
   dataflow: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/java-data-flow-release-v2.11.tar.gz
   dataflow-frontend: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/bitxmesh-datasharing-platform-release-v2.11.0.tar.gz
 
-mysql:
-  m1:
-    host: 127.0.0.1
-    port: 3306
-    user: root
-    password: root
-    database: yzb-dataflow
-  m2:
+mysql:  # 检查 mysql 状态是否正常
+  mysql0:
     host: 172.22.67.81
     port: 3306
     user: root
     password: hyperchain@1n
+  mysql1:
+    host: 172.22.67.13
+    port: 3306
+    user: root
+    password: root
+    database: hyperchain@1n
 
-mongodb:
-  mongo1:
+mongodb: # 检查 mongodb 状态是否正常
+  mongo0:
     host: 172.22.67.81
     port: 27017
     user:
     password:
-  mongo2:
-    host: 172.22.67.81
-    port: 27017
-    user:
-    password:
 
-hyperchain:
-  h1:
+hyperchain: # 检查 hyperchain 状态是否正常（how to do）
+  h0:
     - host: 172.22.67.127
       port: 8081
     - host: 172.22.67.127
@@ -40,20 +36,55 @@ hyperchain:
     - host: 172.22.67.127
       port: 8084
 
-orgs:
-  - name: 常熟机构0
-    chainroll:
-      grpc-port: 10100
-      http-port: 10200
-      hyperchain: h1
-      mongodb: mongo1
-      chainroll_mongo_suffix: 172_22_67_81_bitxmesh_changshu
-    datasys:
-      grpc-port: 9400
-      p2p-port: 7400
-    dataflow:
-      http-port: 9080
-      mysql: m1
-      mysql-datasys-db: 172_22_67_81_bitxmesh_changshu_org0
-      mysql-db: 172_22_67_81_bitxmesh_changshu_dataflow0
+chainroll: # 检查 chainroll 状态是否正常
+  chainroll0:
+    grpc-port: 10100 # 检查端口是否被占用
+    http-port: 10200 # 检查端口是否被占用
+    hyperchain: h0 # 检查 hyperchain 状态
+    mongodb: mongo0 # 检查 mongodb 状态
+    mongo-suffix: yqb_bitxmesh__24_04_10__ops_0 # 检查表是否已存在（否则报错）
+  chainroll1:
+    grpc-port: 10101
+    http-port: 10201
+    hyperchain: h0
+    mongodb: mongo0
+    mongo-suffix: yqb_bitxmesh__24_04_10__ops_1
+  chainroll2:
+    grpc-port: 10102
+    http-port: 10202
+    hyperchain: h0
+    mongodb: mongo0
+    mongo-suffix: yqb_bitxmesh__24_04_10__ops_2
 
+datasys: # 检查 datasys 状态是否正常
+  datasys0:
+    grpc-port: 9400 # 检查端口是否被占用
+    p2p-port: 7400 # 检查端口是否被占用
+    chainroll: chainroll0 # 如果未启动，则启动；检查 chainroll 状态
+    mysql-db: 24_04_12_yqb_org0 # dataflow 连接后，需要创建的数据库
+  datasys1:
+    grpc-port: 9401
+    p2p-port: 7401
+    chainroll: chainroll1
+    mysql-db: 24_04_12_yqb_org1
+
+dataflow:
+  dataflow0:
+    http-port: 9080 # 检查端口是否被占用
+    chainroll: chainroll0 # 启动 chainroll
+    mysql: mysql0 # 检查 mysql 状态
+    mysql-db: 24_04_12_yqb_df0
+  dataflow1:
+    http-port: 9081
+    chainroll: chainroll1 # 启动 chainroll
+    mysql: mysql0
+    mysql-db: 24_04_12_yqb_df1
+    # mysql-datasys-db: 24_04_12_yqb_org1
+#
+#bitxmesh:
+#  mesh1:
+#    chainroll: chainroll0
+#    datasys: datasys0
+#    dataflow: dataflow0
+#  mesh2:
+#
