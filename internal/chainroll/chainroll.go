@@ -42,9 +42,10 @@ func NewChainroll(rootWorkdir string, packagePath string, grpcPort string, httpP
 func (c *Chainroll) Start() {
 	// TODO 检查 hyperchain 和 mongodb 状态（并创建 mongodb 相关数据库）
 	c.makeWorkspace()
-	c.generateEnvFile()
+	//c.generateEnvFile()
 	c.replaceHyperchain()
 	c.execStartScript()
+	c.status()
 
 	log.Printf("🎉🎉🎉 Chainroll started at %s\n", c.workdir)
 }
@@ -126,6 +127,10 @@ func (c *Chainroll) replaceHyperchain() {
 		return nodesStr
 	}
 
+	// [jsonRPC]
+	//	 nodes = ["172.22.67.127", "172.22.67.127", "172.22.67.127", "172.22.67.127"]
+	//	 ports = ["8081", "8082", "8083", "8084"]
+
 	// 使用正则表达式替换节点和端口
 	nodeRegex := regexp.MustCompile(`nodes\s*=\s*\[.*]`)
 	portRegex := regexp.MustCompile(`ports\s*=\s*\[.*]`)
@@ -173,6 +178,16 @@ func (c *Chainroll) execStartScript() {
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatalln("Error starting chainroll: ", err)
+	}
+	fmt.Printf("%s", out)
+}
+
+func (c *Chainroll) status() {
+	cmd := exec.Command("bash", "./status.sh")
+	cmd.Dir = c.workdir
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Fatalln("Error getting chainroll status: ", err)
 	}
 	fmt.Printf("%s", out)
 }
