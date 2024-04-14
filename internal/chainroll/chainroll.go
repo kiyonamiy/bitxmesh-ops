@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"strings"
 	"time"
 )
 
@@ -196,7 +197,7 @@ func (c *Chainroll) status() bool {
 		if err != nil {
 			log.Fatalln("Error getting chainroll status: ", err)
 		}
-		if string(out) == "chainroll is running\n" {
+		if strings.HasPrefix(string(out), "chainroll is running") {
 			return true
 		}
 		count++
