@@ -1,9 +1,16 @@
-workdir: /Users/hyperchain/Code/bitxmesh-ops/_output
+#workdir: /Users/hyperchain/Code/bitxmesh-ops/_output
+#packages:
+#  chainroll: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/chainroll-release-v1.1.tar.gz
+#  datasys: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/datasys-release-v1.1.tar.gz
+#  dataflow: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/java-data-flow-release-v2.11.tar.gz
+#  dataflow-frontend: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/bitxmesh-datasharing-platform-release-v2.11.0.tar.gz
+
+workdir: /home/taoyq/yqb/bitxmesh-ops/_output
 packages:
-  chainroll: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/chainroll-release-v1.1.tar.gz
-  datasys: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/datasys-release-v1.1.tar.gz
-  dataflow: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/java-data-flow-release-v2.11.tar.gz
-  dataflow-frontend: /Users/hyperchain/Code/bitxmesh-ops/configs/packages/bitxmesh-datasharing-platform-release-v2.11.0.tar.gz
+  chainroll: /home/taoyq/yqb/bitxmesh-ops/configs/packages/chainroll-release-v1.1.tar.gz
+  datasys: /home/taoyq/yqb/bitxmesh-ops/configs/packages/datasys-release-v1.1.tar.gz
+  dataflow: /home/taoyq/yqb/bitxmesh-ops/configs/packages/java-data-flow-release-v2.11.tar.gz
+  dataflow-frontend: /home/taoyq/yqb/bitxmesh-ops/configs/packages/bitxmesh-datasharing-platform-release-v2.11.0.tar.gz
 
 mysql:  # 检查 mysql 状态是否正常
   mysql0:
