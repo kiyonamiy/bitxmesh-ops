@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"time"
 )
 
 const envFilename = "chainroll-auto.env"
@@ -45,9 +46,13 @@ func (c *Chainroll) Start() {
 	//c.generateEnvFile()
 	c.replaceHyperchain()
 	c.execStartScript()
-	c.status()
+	isRunnging := c.status()
+	if isRunnging {
+		log.Printf("🎉🎉🎉 Chainroll started at %s\n", c.workdir)
+	} else {
+		log.Fatalln("❌ Error starting chainroll")
+	}
 
-	log.Printf("🎉🎉🎉 Chainroll started at %s\n", c.workdir)
 }
 
 // makeWorkspace 创建工作目录
@@ -182,12 +187,20 @@ func (c *Chainroll) execStartScript() {
 	fmt.Printf("%s", out)
 }
 
-func (c *Chainroll) status() {
-	cmd := exec.Command("bash", "./status.sh")
-	cmd.Dir = c.workdir
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		log.Fatalln("Error getting chainroll status: ", err)
+func (c *Chainroll) status() bool {
+	count := 1
+	for count < 10 {
+		cmd := exec.Command("bash", "./status.sh")
+		cmd.Dir = c.workdir
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			log.Fatalln("Error getting chainroll status: ", err)
+		}
+		if string(out) == "chainroll is running\n" {
+			return true
+		}
+		count++
+		time.Sleep(1 * time.Second)
 	}
-	fmt.Printf("%s", out)
+	return false
 }
